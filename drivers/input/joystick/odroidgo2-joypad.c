@@ -446,7 +446,7 @@ static void joypad_adc_check(struct input_polled_dev *poll_dev)
 		else
 		{
 			input_report_abs(poll_dev->input,
-				adc->report_type, value);
+				adc->report_type, value* (-1));
 		}
 		adc->old_value = value;
 	}
