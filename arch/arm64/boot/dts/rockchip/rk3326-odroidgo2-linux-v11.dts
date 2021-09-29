@@ -105,94 +105,100 @@
                     poll-device is does not support wakeup-source.
 		*/
                 sw1 {
-                        gpios = <&gpio1 RK_PB4 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PA0 GPIO_ACTIVE_LOW>;
                         label = "GPIO DPAD-UP";
                         linux,code = <BTN_DPAD_UP>; // 0x220
                 };
                 sw2 {
-                        gpios = <&gpio1 RK_PB5 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PA1 GPIO_ACTIVE_LOW>;
                         label = "GPIO DPAD-DOWN";
                         linux,code = <BTN_DPAD_DOWN>; // 0x221
                 };
                 sw3 {
-                        gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PA2 GPIO_ACTIVE_LOW>;
                         label = "GPIO DPAD-LEFT";
                         linux,code = <BTN_DPAD_LEFT>; // 0x222
                 };
                 sw4 {
-                        gpios = <&gpio1 RK_PB7 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PA3 GPIO_ACTIVE_LOW>;
                         label = "GPIO DPAD-RIGHT";
                         linux,code = <BTN_DPAD_RIGHT>; // 0x223
                 };
                 sw5 {
-                        gpios = <&gpio1 RK_PA2 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PA4 GPIO_ACTIVE_LOW>;
                         label = "GPIO KEY BTN-A";
                         linux,code = <BTN_EAST>; // 0x131
                 };
                 sw6 {
-                        gpios = <&gpio1 RK_PA5 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PA5 GPIO_ACTIVE_LOW>;
                         label = "GPIO BTN-B";
                         linux,code = <BTN_SOUTH>; // 0x130
                 };
                 sw7 {
-                        gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_LOW>;
                         label = "GPIO BTN-Y";
                         linux,code = <BTN_WEST>; // 0x134
                 };
                 sw8 {
-                        gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_LOW>;
                         label = "GPIO BTN-X";
                         linux,code = <BTN_NORTH>; // 0x133
                 };
                 sw9 {
-                        gpios = <&gpio2 RK_PA0 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;     //ket back s18
                         label = "GPIO F1";
                         linux,code = <BTN_TRIGGER_HAPPY1>; // 0x2c0
                 };
                 sw10 {
-                        gpios = <&gpio2 RK_PA1 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PB7 GPIO_ACTIVE_LOW>;     //key menu s17
                         label = "GPIO F2";
                         linux,code = <BTN_TRIGGER_HAPPY2>; // 0x2c1
                 };
                 sw11 {
-                        gpios = <&gpio2 RK_PA2 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;   //select  s13
                         label = "GPIO F3";
                         linux,code = <BTN_TRIGGER_HAPPY3>; // 0x2c2
                 };
                 sw12 {
-                        gpios = <&gpio2 RK_PA3 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PB5 GPIO_ACTIVE_LOW>;   //start   s14
                         label = "GPIO F4";
                         linux,code = <BTN_TRIGGER_HAPPY4>; // 0x2c3
                 };
                 sw13 {
-                        gpios = <&gpio2 RK_PA4 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PA5 GPIO_ACTIVE_LOW>;  //S15 vol+
                         label = "GPIO F5";
                         linux,code = <BTN_TRIGGER_HAPPY5>; // 0x2c4
                 };
                 sw14 {
-                        gpios = <&gpio2 RK_PA5 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_LOW>;  //s16  vol-
                         label = "GPIO F6";
                         linux,code = <BTN_TRIGGER_HAPPY6>; // 0x13c
                 };
                 sw15 {
-                        gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-LEFT";
                         linux,code = <BTN_TL>; // 0x02
                 };
                 sw16 {
-                        gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PB2 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-RIGHT";
                         linux,code = <BTN_TR>; // 0x05
                 };
                 sw20 {
-                        gpios = <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PB1 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-LEFT2";
                         linux,code = <BTN_TL2>;
                 };
                 sw21 {
-                        gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PB3 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-RIGHT2";
                         linux,code = <BTN_TR2>;
+                };
+				
+                sw22 {
+                        gpios = <&gpio1 RK_PB0 GPIO_ACTIVE_LOW>;
+                        label = "GPIO JOY KEY";
+                        linux,code = <BTN_TRIGGER_HAPPY7>;
                 };
         };
 
@@ -365,12 +371,12 @@
 		/* pwm1 backlight */
 		backlight = <&backlight>;
 		/* RK817 LDO7 */
-		backlight-supply = <&vcc_backlight>;
+		/* backlight-supply = <&vcc_backlight>; */
 		/* RK817 LDO8 */
 		power-supply = <&vcc_lcd>;
 
 		/* Rev 0.2 LCD reset gpio GPIO3.C0 */
-		reset-gpios = <&gpio3 RK_PC0 GPIO_ACTIVE_LOW>;
+		reset-gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_LOW>;
 
 		prepare-delay-ms = <2>;
 		reset-delay-ms = <1>;
@@ -429,7 +435,7 @@
 			15 00 02 C1 41
 			39 00 04 C5 00 1A 80
 			15 00 02 36 48
-			15 00 02 3A 55
+			15 00 02 3A 66
 			15 00 02 B0 00
 			15 00 02 B1 A0
 			15 00 02 B4 02
@@ -824,8 +830,8 @@
 			sample_res = <10>;
 
 			/* P.C.B rev0.2 DC Detect & Charger Status LED GPIO */
-			dc_det_gpio  = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
-			chg_led_gpio = <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
+			dc_det_gpio  = <&gpio1 RK_PB4 GPIO_ACTIVE_HIGH>;
+			chg_led_gpio = <&gpio1 RK_PB3 GPIO_ACTIVE_HIGH>;
 
 			extcon = <&u2phy>;
 		};
@@ -1017,7 +1023,7 @@
 		pmic_int: pmic_int {
 			rockchip,pins =
 				<0 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>,
-				<0 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
+				<1 RK_PB4 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 
 		/* ODROID-GO2 : PMIC_SLEEP(GPIO0.PA4) */
@@ -1044,25 +1050,26 @@
 	};
 	btns {
 		btn_pins: btn-pins {
-			rockchip,pins = <1 RK_PB4 RK_FUNC_GPIO &pcfg_pull_up>,
-					<1 RK_PB5 RK_FUNC_GPIO &pcfg_pull_up>,
-					<1 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>,
-					<1 RK_PB7 RK_FUNC_GPIO &pcfg_pull_up>,
-					<1 RK_PA2 RK_FUNC_GPIO &pcfg_pull_up>,
-					<1 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>,
-					<1 RK_PA6 RK_FUNC_GPIO &pcfg_pull_up>,
-					<1 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>,
+			rockchip,pins = <1 RK_PB5 RK_FUNC_GPIO &pcfg_pull_up>, /* sta */
+					<1 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>, /* sel */
+					<1 RK_PB7 RK_FUNC_GPIO &pcfg_pull_up>, /* menu */
+					<1 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>, /* vol+ */
+					<1 RK_PA6 RK_FUNC_GPIO &pcfg_pull_up>, /* vol- */
+					<1 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>, /* back */
+					<1 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>, /* joy key */
 
-					<2 RK_PA0 RK_FUNC_GPIO &pcfg_pull_up>,
-					<2 RK_PA1 RK_FUNC_GPIO &pcfg_pull_up>,
-					<2 RK_PA2 RK_FUNC_GPIO &pcfg_pull_up>,
-					<2 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>,
-					<2 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>,
-					<2 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>,
-					<2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_up>,
-					<2 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>,
-					<3 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>,
-					<3 RK_PB7 RK_FUNC_GPIO &pcfg_pull_up>;
+					<2 RK_PA0 RK_FUNC_GPIO &pcfg_pull_up>, /* up */
+					<2 RK_PA1 RK_FUNC_GPIO &pcfg_pull_up>, /* down */
+					<2 RK_PA2 RK_FUNC_GPIO &pcfg_pull_up>, /* left */
+					<2 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>, /* right */
+					<2 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>, /* a */
+					<2 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>, /* b */
+					<2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_up>, /* x */
+					<2 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>, /* y */
+					<2 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>, /* l1 */
+					<2 RK_PB1 RK_FUNC_GPIO &pcfg_pull_up>, /* l2 */
+					<2 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>, /* r1 */
+					<2 RK_PB3 RK_FUNC_GPIO &pcfg_pull_up>; /* r2 */
 		};
 	};
 };
