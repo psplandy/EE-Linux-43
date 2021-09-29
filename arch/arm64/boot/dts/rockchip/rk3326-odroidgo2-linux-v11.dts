@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 /*
- * Copyright (c) 2020 Hardkernel Co., Ltd
+ * Copyright (c) 2019 Hardkernel Co., Ltd
  */
 
 /dts-v1/;
@@ -14,7 +14,7 @@
 
 / {
 	model = "Hardkernel ODROID-GO2";
-	compatible = "rockchip,rk3326-odroidgo2-linux-v11", "rockchip,rk3326";
+	compatible = "rockchip,rk3326-odroidgo2-linux", "rockchip,rk3326";
 
 	chosen {
                 bootargs = "";
@@ -23,9 +23,9 @@
 	joypad: odroidgo2-joypad {
                 compatible = "odroidgo2-joypad";
 
-                joypad-name = "GO-Advance Gamepad (rev 1.1)";
+                joypad-name = "GO-Advance Gamepad";
                 joypad-product = <0x1000>;
-                joypad-revision = <0x0101>;
+                joypad-revision = <0x0100>;
 
                 /*
                   - odroidgo2-joypad sysfs list -
@@ -50,6 +50,15 @@
 		io-channel-names = "joy_x", "joy_y";
 		io-channels = <&saradc 1>, <&saradc 2>;
 
+		/* adc channel count */
+		button-adc-count = <2>;
+
+		/* adc calculate scale */
+		button-adc-scale = <2>;
+
+		/* adc deadzone range  */
+		button-adc-deadzone = <20>;
+
 		/*
 		    joy-stick voltage range
 		    /sys/devices/platform/ff288000.saradc/iio:device0
@@ -57,25 +66,20 @@
 		    adc-y : in_voltage2_raw
 
 		    range calculate.
-		    (adc raw max value - adc raw min value) * 1.7515
+		    (adc raw max value - adc raw min value) * scale * 1.7515
 		*/
-		button-adc-x-range = <1100>;
-		button-adc-y-range = <1000>;
-
-		/* adc channel count */
-		button-adc-count = <2>;
+		button-adc-x-range = <1800>;
+		button-adc-y-range = <1800>;
 
 		/*
 		  specifies fuzz value that is used to filter noise from
 		  the event stream.
 		*/
-		button-adc-fuzz = <10>;
-		button-adc-flat = <10>;
+		button-adc-fuzz = <32>;
+		button-adc-flat = <32>;
 
 		/* poll device interval (ms), adc read interval */
-		poll-interval = <2>;
-
-
+		poll-interval = <10>;
 
 		/* gpio button auto repeat set value : default disable */
 		/*
@@ -100,102 +104,85 @@
                     poll-device is does not support wakeup-source.
 		*/
                 sw1 {
-                        gpios = <&gpio2 RK_PA0 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PB4 GPIO_ACTIVE_LOW>;
                         label = "GPIO DPAD-UP";
                         linux,code = <BTN_DPAD_UP>; // 0x220
                 };
                 sw2 {
-                        gpios = <&gpio2 RK_PA1 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PB5 GPIO_ACTIVE_LOW>;
                         label = "GPIO DPAD-DOWN";
                         linux,code = <BTN_DPAD_DOWN>; // 0x221
                 };
                 sw3 {
-                        gpios = <&gpio2 RK_PA2 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;
                         label = "GPIO DPAD-LEFT";
                         linux,code = <BTN_DPAD_LEFT>; // 0x222
                 };
                 sw4 {
-                        gpios = <&gpio2 RK_PA3 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PB7 GPIO_ACTIVE_LOW>;
                         label = "GPIO DPAD-RIGHT";
                         linux,code = <BTN_DPAD_RIGHT>; // 0x223
                 };
                 sw5 {
-                        gpios = <&gpio2 RK_PA4 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PA2 GPIO_ACTIVE_LOW>;
                         label = "GPIO KEY BTN-A";
                         linux,code = <BTN_EAST>; // 0x131
                 };
                 sw6 {
-                        gpios = <&gpio2 RK_PA5 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PA5 GPIO_ACTIVE_LOW>;
                         label = "GPIO BTN-B";
                         linux,code = <BTN_SOUTH>; // 0x130
                 };
                 sw7 {
-                        gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_LOW>;
                         label = "GPIO BTN-Y";
                         linux,code = <BTN_WEST>; // 0x134
                 };
                 sw8 {
-                        gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;
                         label = "GPIO BTN-X";
                         linux,code = <BTN_NORTH>; // 0x133
                 };
                 sw9 {
-                        gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;     //ket back s18
+                        gpios = <&gpio2 RK_PA0 GPIO_ACTIVE_LOW>;
                         label = "GPIO F1";
                         linux,code = <BTN_TRIGGER_HAPPY1>; // 0x2c0
                 };
                 sw10 {
-                        gpios = <&gpio1 RK_PB7 GPIO_ACTIVE_LOW>;     //key menu s17
+                        gpios = <&gpio2 RK_PA1 GPIO_ACTIVE_LOW>;
                         label = "GPIO F2";
                         linux,code = <BTN_TRIGGER_HAPPY2>; // 0x2c1
                 };
                 sw11 {
-                        gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;   //select  s13
+                        gpios = <&gpio2 RK_PA2 GPIO_ACTIVE_LOW>;
                         label = "GPIO F3";
                         linux,code = <BTN_TRIGGER_HAPPY3>; // 0x2c2
                 };
                 sw12 {
-                        gpios = <&gpio1 RK_PB5 GPIO_ACTIVE_LOW>;   //start   s14
+                        gpios = <&gpio2 RK_PA3 GPIO_ACTIVE_LOW>;
                         label = "GPIO F4";
                         linux,code = <BTN_TRIGGER_HAPPY4>; // 0x2c3
                 };
                 sw13 {
-                        gpios = <&gpio1 RK_PA5 GPIO_ACTIVE_LOW>;  //S15 vol+
+                        gpios = <&gpio2 RK_PA4 GPIO_ACTIVE_LOW>;
                         label = "GPIO F5";
                         linux,code = <BTN_TRIGGER_HAPPY5>; // 0x2c4
                 };
                 sw14 {
-                        gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_LOW>;  //s16  vol-
+                        gpios = <&gpio2 RK_PA5 GPIO_ACTIVE_LOW>;
                         label = "GPIO F6";
                         linux,code = <BTN_TRIGGER_HAPPY6>; // 0x13c
                 };
                 sw15 {
-                        gpios = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-LEFT";
                         linux,code = <BTN_TL>; // 0x02
                 };
                 sw16 {
-                        gpios = <&gpio2 RK_PB2 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-RIGHT";
                         linux,code = <BTN_TR>; // 0x05
                 };
-                sw20 {
-                        gpios = <&gpio2 RK_PB1 GPIO_ACTIVE_LOW>;
-                        label = "GPIO TOP-LEFT2";
-                        linux,code = <BTN_TL2>;
-                };
-                sw21 {
-                        gpios = <&gpio2 RK_PB3 GPIO_ACTIVE_LOW>;
-                        label = "GPIO TOP-RIGHT2";
-                        linux,code = <BTN_TR2>;
-                };
-				
-                sw22 {
-                        gpios = <&gpio1 RK_PB0 GPIO_ACTIVE_LOW>;
-                        label = "GPIO JOY KEY";
-                        linux,code = <BTN_TRIGGER_HAPPY7>;
-                };
-				
         };
 
 	fiq-debugger {
@@ -209,6 +196,20 @@
 		pinctrl-names = "default";
 		pinctrl-0 = <&uart2m1_xfer>;
 		status = "okay";
+	};
+
+	leds: gpio_leds {
+		compatible = "gpio-leds";
+
+		pinctrl-names = "led_pins";
+		pinctrl-0 = <&led_pins>;
+
+		/* Blue LED : GPIO0_C1 */
+		heartbeat {
+			label = "blue:heartbeat";
+			gpios = <&gpio0 RK_PC1 GPIO_ACTIVE_HIGH>;
+			linux,default-trigger = "heartbeat";
+		};
 	};
 
 	backlight: backlight {
@@ -290,48 +291,24 @@
 		regulator-max-microvolt = <3800000>;
 	};
 
-	sdio_pwrseq: sdio-pwrseq {
-		compatible = "mmc-pwrseq-simple";
-		clocks = <&cru SCLK_WIFI_PMU>;
-		clock-names = "clk_wifi_pmu";
-		pinctrl-names = "default";
-		pinctrl-0 = <&wifi_enable_h>;
+	vcc_host: vcc_host {
+		compatible = "regulator-fixed";
+		regulator-name = "vcc_host";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
 
-		/*
-		 * On the module itself this is one of these (depending
-		 * on the actual card populated):
-		 * - SDIO_RESET_L_WL_REG_ON
-		 * - PDN (power down when low)
-		 */
-		reset-gpios = <&gpio0 RK_PA2 GPIO_ACTIVE_LOW>; /* GPIO0_A2 */
+		gpio = <&gpio0 RK_PB7 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		regulator-always-on;
+		vin-supply = <&vccsys>;
 	};
-	
-	wireless-wlan {
-		compatible = "wlan-platdata";
-		rockchip,grf = <&grf>;
-		/* wifi_chip_type - wifi chip define
-		* ap6210, ap6330, ap6335
-		* rtl8188eu, rtl8723bs, rtl8723bu
-		* esp8089
-		*/
-		wifi_chip_type = "rtl8723bs";
-		sdio_vref = <3300>; //1800mv or 3300mv
-		WIFI,host_wake_irq = <&gpio0 RK_PA5 GPIO_ACTIVE_HIGH>;
-		status = "okay";
+
+	ext_cam_clk: external-camera-clock {
+		compatible = "fixed-clock";
+		clock-frequency = <25000000>;
+		clock-output-names = "CLK_CAMERA_25MHZ";
+		#clock-cells = <0>;
 	};
-	
-	wireless-bluetooth {
-		compatible = "bluetooth-platdata";
-		uart_rts_gpios = <&gpio1 RK_PC3 GPIO_ACTIVE_LOW>;
-		pinctrl-names = "default","rts_gpio";
-		pinctrl-0 = <&uart1_rts>;
-		pinctrl-1 = <&uart1_rts_gpio>;
-		BT,reset_gpio = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
-		BT,wake_gpio = <&gpio0 RK_PA1 GPIO_ACTIVE_HIGH>;
-		BT,wake_host_irq = <&gpio0 RK_PA7 GPIO_ACTIVE_HIGH>; /* BT_WAKE_HOST */
-		status = "okay";
-	};
-	
 };
 
 
@@ -347,17 +324,14 @@
 &cpu0_opp_table {
 	rockchip,avs = <1>;
 
-	/* bin scaling clock 1.296MHz */
+	/* default 1.296GHz */
 	rockchip,bin-scaling-sel = <
-		0               13
-		1               13
+		0	13
+		1	13
 	>;
 
-	/delete-node/ opp-408000000;
-	/delete-node/ opp-600000000;
 	/delete-node/ opp-816000000;
-	/delete-node/ opp-1416000000;
-	/delete-node/ opp-1512000000;
+	/delete-node/ opp-1248000000;
 };
 
 &display_subsystem {
@@ -374,12 +348,12 @@
 		/* pwm1 backlight */
 		backlight = <&backlight>;
 		/* RK817 LDO7 */
-		/* backlight-supply = <&vcc_backlight>; */
+		backlight-supply = <&vcc_backlight>;
 		/* RK817 LDO8 */
 		power-supply = <&vcc_lcd>;
 
 		/* Rev 0.2 LCD reset gpio GPIO3.C0 */
-		reset-gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_LOW>;
+		reset-gpios = <&gpio3 RK_PC0 GPIO_ACTIVE_LOW>;
 
 		prepare-delay-ms = <2>;
 		reset-delay-ms = <1>;
@@ -438,7 +412,7 @@
 			15 00 02 C1 41
 			39 00 04 C5 00 1A 80
 			15 00 02 36 48
-			15 00 02 3A 66
+			15 00 02 3A 55
 			15 00 02 B0 00
 			15 00 02 B1 A0
 			15 00 02 B4 02
@@ -741,41 +715,37 @@
 				};
 			};
 
-			/* GKD350 PRO */
-			vcc_lcd: LDO_REG7 {
+			/* Rev 0.2 LCD Backlight Power */
+			vcc_backlight: LDO_REG7 {
 				regulator-min-microvolt = <3300000>;
 				regulator-max-microvolt = <3300000>;
+				regulator-name = "vcc_backlight";
+				regulator-state-mem {
+					regulator-off-in-suspend;
+					regulator-suspend-microvolt = <3300000>;
+				};
+			};
+
+			/* Rev 0.2 LCD IO Power */
+			vcc_lcd: LDO_REG8 {
+				regulator-min-microvolt = <2800000>;
+				regulator-max-microvolt = <2800000>;
 				regulator-name = "vcc_lcd";
 				regulator-state-mem {
 					regulator-off-in-suspend;
-					regulator-suspend-microvolt = <3300000>;
+					regulator-suspend-microvolt = <2800000>;
 				};
 			};
 
-			/* GKD350 PRO */
-			vcc_rk618: LDO_REG8 {
-				regulator-always-on;
-				regulator-boot-on;
-				regulator-min-microvolt = <3300000>;
-				regulator-max-microvolt = <3300000>;
-				regulator-name = "vcc_rk618";
+			/* Rev 0.2 CAM Power - Disabled by default */
+			vcc_cam: LDO_REG9 {
+				regulator-min-microvolt = <3000000>;
+				regulator-max-microvolt = <3000000>;
+
+				regulator-name = "vcc_cam";
 				regulator-state-mem {
 					regulator-off-in-suspend;
-					regulator-suspend-microvolt = <3300000>;
-				};
-			};
-
-			/* GKD350 PRO */
-			vdd_rk618: LDO_REG9 {
-				regulator-always-on;
-				regulator-boot-on;
-				regulator-min-microvolt = <1200000>;
-				regulator-max-microvolt = <1200000>;
-
-				regulator-name = "vdd_rk618";
-				regulator-state-mem {
-					regulator-off-in-suspend;
-					regulator-suspend-microvolt = <1200000>;
+					regulator-suspend-microvolt = <3000000>;
 				};
 			};
 
@@ -815,7 +785,7 @@
 			sleep_enter_current = <300>;
 			sleep_exit_current = <300>;
 			sleep_filter_current = <100>;
-			power_off_thresd = <3500>;
+			power_off_thresd = <3300>;
 			zero_algorithm_vol = <3700>;
 			max_soc_offset = <60>;
 			monitor_sec = <5>;
@@ -834,9 +804,9 @@
 			virtual_power = <0>;
 			sample_res = <10>;
 
-			/* GKD350 PRO DC Detect & Charger Status LED GPIO */
-			dc_det_gpio  = <&gpio1 RK_PB4 GPIO_ACTIVE_HIGH>;
-			chg_led_gpio = <&gpio1 RK_PB3 GPIO_ACTIVE_HIGH>;
+			/* P.C.B rev0.2 DC Detect & Charger Status LED GPIO */
+			dc_det_gpio  = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
+			chg_led_gpio = <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
 
 			extcon = <&u2phy>;
 		};
@@ -863,7 +833,26 @@
 
 /* MIPI CSI I2C */
 &i2c2 {
-	status = "disabled";
+	status = "okay";
+
+	clock-frequency = <100000>;
+
+	i2c-scl-falling-time-ns = <50>;
+	i2c-scl-rising-time-ns = <300>;
+
+	ov5647: ov5647@36 {
+		compatible = "ovti,ov5647";
+		reg = <0x36>;
+		clocks = <&ext_cam_clk>;
+		status = "okay";
+
+		port {
+			ov5647_out: endpoint {
+				remote-endpoint = <&ov5647_in>;
+				data-lanes = <1 2>;
+			};
+		};
+	};
 };
 
 /* I2S 1 Channel Used */
@@ -896,10 +885,48 @@
 
 &mipi_dphy_rx0 {
 	status = "okay";
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			ov5647_in: endpoint@1 {
+				reg = <1>;
+
+				remote-endpoint = <&ov5647_out>;
+				data-lanes = <1 2>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+
+			dphy_rx0_out: endpoint@0 {
+				remote-endpoint = <&isp0_mipi_in>;
+			};
+		};
+	};
 };
 
 &rkisp1 {
 	status = "okay";
+
+	port {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		/* mipi */
+		isp0_mipi_in: endpoint@0 {
+			reg = <0>;
+			remote-endpoint = <&dphy_rx0_out>;
+		};
+	};
 };
 
 &spi0 {
@@ -914,11 +941,6 @@
 	pmuio1-supply = <&vcc3v3_pmu>;
 	/* GPIO0_B/GPIO0_C, Flash */
 	pmuio2-supply = <&vcc3v3_pmu>;
-};
-
-/* GKD350 PRO PWR LED, When the voltage is low, it can display */
-&pwm0 {
-	status = "okay";
 };
 
 /* LCD Backlight PWM */
@@ -954,18 +976,6 @@
 	sd-uhs-sdr104;
 	vqmmc-supply = <&vccio_sd>;
 	vmmc-supply = <&vcc_sd>;
-	status = "okay";
-};
-
-&sdio {
-	bus-width = <4>;
-	cap-sd-highspeed;
-	supports-sdio;
-	ignore-pm-notify;
-	keep-power-in-suspend;
-	non-removable;
-	mmc-pwrseq = <&sdio_pwrseq>;
-	sd-uhs-sdr104;
 	status = "okay";
 };
 
@@ -1033,7 +1043,7 @@
 		pmic_int: pmic_int {
 			rockchip,pins =
 				<0 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>,
-				<1 RK_PB4 RK_FUNC_GPIO &pcfg_pull_none>;
+				<0 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 
 		/* ODROID-GO2 : PMIC_SLEEP(GPIO0.PA4) */
@@ -1053,42 +1063,30 @@
 		};
 	};
 
-	btns {
-		btn_pins: btn-pins {
-			rockchip,pins = <1 RK_PB5 RK_FUNC_GPIO &pcfg_pull_up>, /* sta */
-					<1 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>, /* sel */
-					<1 RK_PB7 RK_FUNC_GPIO &pcfg_pull_up>, /* menu */
-					<1 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>, /* vol+ */
-					<1 RK_PA6 RK_FUNC_GPIO &pcfg_pull_up>, /* vol- */
-					<1 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>, /* back */
-					<1 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>, /* joy key */
-
-					<2 RK_PA0 RK_FUNC_GPIO &pcfg_pull_up>, /* up */
-					<2 RK_PA1 RK_FUNC_GPIO &pcfg_pull_up>, /* down */
-					<2 RK_PA2 RK_FUNC_GPIO &pcfg_pull_up>, /* left */
-					<2 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>, /* right */
-					<2 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>, /* a */
-					<2 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>, /* b */
-					<2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_up>, /* x */
-					<2 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>, /* y */
-					<2 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>, /* l1 */
-					<2 RK_PB1 RK_FUNC_GPIO &pcfg_pull_up>, /* l2 */
-					<2 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>, /* r1 */
-					<2 RK_PB3 RK_FUNC_GPIO &pcfg_pull_up>; /* r2 */
-
+	leds {
+		led_pins: led-pins {
+			rockchip,pins = <0 RK_PC1 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
+	btns {
+		btn_pins: btn-pins {
+			rockchip,pins = <1 RK_PB4 RK_FUNC_GPIO &pcfg_pull_up>,
+					<1 RK_PB5 RK_FUNC_GPIO &pcfg_pull_up>,
+					<1 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>,
+					<1 RK_PB7 RK_FUNC_GPIO &pcfg_pull_up>,
+					<1 RK_PA2 RK_FUNC_GPIO &pcfg_pull_up>,
+					<1 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>,
+					<1 RK_PA6 RK_FUNC_GPIO &pcfg_pull_up>,
+					<1 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>,
 
-       /* gkd350 pro motor Vibrator, gpio0_PC1
-         echo 17 > /sys/class/gpio/export
-         echo out > /sys/class/gpio/gpio17/direction
-         echo 0 > /sys/class/gpio/gpio17/value
-         echo 1 > /sys/class/gpio/gpio17/value
-       */
-	   
-	sdio_pwrseq {
-		wifi_enable_h: wifi-enable-h {
-			rockchip,pins = <0 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
+					<2 RK_PA0 RK_FUNC_GPIO &pcfg_pull_up>,
+					<2 RK_PA1 RK_FUNC_GPIO &pcfg_pull_up>,
+					<2 RK_PA2 RK_FUNC_GPIO &pcfg_pull_up>,
+					<2 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>,
+					<2 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>,
+					<2 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>,
+					<2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_up>,
+					<2 RK_PA7 RK_FUNC_GPIO &pcfg_pull_up>;
 		};
 	};
 };
