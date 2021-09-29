@@ -371,7 +371,7 @@
 		/* pwm1 backlight */
 		backlight = <&backlight>;
 		/* RK817 LDO7 */
-		/* backlight-supply = <&vcc_backlight>; */
+		backlight-supply = <&vcc_backlight>;
 		/* RK817 LDO8 */
 		power-supply = <&vcc_lcd>;
 
