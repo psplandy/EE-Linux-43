@@ -356,27 +356,22 @@
 	
 	wireless-wlan {
 		compatible = "wlan-platdata";
-		rockchip,grf = <&grf>;
-		/* wifi_chip_type - wifi chip define
-		* ap6210, ap6330, ap6335
-		* rtl8188eu, rtl8723bs, rtl8723bu
-		* esp8089
-		*/
 		wifi_chip_type = "rtl8723ds";
-		sdio_vref = <3300>; //1800mv or 3300mv
 		WIFI,host_wake_irq = <&gpio0 RK_PA5 GPIO_ACTIVE_HIGH>;
 		status = "okay";
 	};
-	
+
 	wireless-bluetooth {
 		compatible = "bluetooth-platdata";
+		clocks = <&rk817 1>;
+		clock-names = "ext_clock";
 		uart_rts_gpios = <&gpio1 RK_PC3 GPIO_ACTIVE_LOW>;
 		pinctrl-names = "default","rts_gpio";
 		pinctrl-0 = <&uart1_rts>;
 		pinctrl-1 = <&uart1_rts_gpio>;
 		BT,reset_gpio = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
 		BT,wake_gpio = <&gpio0 RK_PA1 GPIO_ACTIVE_HIGH>;
-		BT,wake_host_irq = <&gpio0 RK_PA7 GPIO_ACTIVE_HIGH>; /* BT_WAKE_HOST */
+		BT,wake_host_irq = <&gpio0 RK_PA7 GPIO_ACTIVE_HIGH>;
 		status = "okay";
 	};
 	
