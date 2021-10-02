@@ -203,7 +203,6 @@
                         label = "GPIO JOY KEY";
                         linux,code = <BTN_TRIGGER_HAPPY7>;
                 };
-*/
 				
         };
 
