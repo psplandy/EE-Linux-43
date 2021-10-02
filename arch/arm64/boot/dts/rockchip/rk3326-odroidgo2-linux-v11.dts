@@ -17,7 +17,7 @@
 #include "rk3326-linux.dtsi"
 
 / {
-	model = "Hardkernel ODROID-GO2";
+	model = "MarsBoard";
 	compatible = "rockchip,rk3326-odroidgo2-linux-v11", "rockchip,rk3326";
 
 	chosen {
@@ -28,8 +28,8 @@
                 compatible = "odroidgo2-joypad";
                 
                 joypad-name = "GO-Advance Gamepad (rev 1.1)";
-                joypad-product = <0x0001>;
-                joypad-revision = <0x0101>;
+                joypad-product = <0x0002>;
+                joypad-revision = <0x0011>;
 				
                 /*
                   - odroidgo2-joypad sysfs list -
@@ -160,22 +160,22 @@
                 sw11 {
                         gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;
                         label = "GPIO F3";
-                        linux,code = <BTN_TRIGGER_HAPPY5>; // 0x2c2
+                        linux,code = <BTN_TRIGGER_HAPPY3>; // 0x2c2
                 };
                 sw12 {
                         gpios = <&gpio1 RK_PB5 GPIO_ACTIVE_LOW>;
                         label = "GPIO F4";
-                        linux,code = <BTN_TRIGGER_HAPPY6>; // 0x2c3
+                        linux,code = <BTN_TRIGGER_HAPPY4>; // 0x2c3
                 };
                 sw13 {
                         gpios = <&gpio1 RK_PA5 GPIO_ACTIVE_LOW>;
                         label = "GPIO F5";
-                        linux,code = <BTN_TRIGGER_HAPPY3>; // 0x2c4
+                        linux,code = <BTN_TRIGGER_HAPPY5>; // 0x2c4
                 };
                 sw14 {
                         gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_LOW>;
                         label = "GPIO F6";
-                        linux,code = <BTN_TRIGGER_HAPPY4>; // 0x13c
+                        linux,code = <BTN_TRIGGER_HAPPY6>; // 0x13c
                 };
                 sw15 {
                         gpios = <&gpio2 RK_PB1 GPIO_ACTIVE_LOW>;
@@ -187,7 +187,6 @@
                         label = "GPIO TOP-RIGHT";
                         linux,code = <BTN_TR>; // 0x05
                 };
-/*
                 sw20 {
                         gpios = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-LEFT2";
@@ -204,7 +203,6 @@
                         label = "GPIO JOY KEY";
                         linux,code = <BTN_TRIGGER_HAPPY7>;
                 };
-*/
 				
         };
 
@@ -928,7 +926,38 @@
 	};
 };
 
-/* MIPI CSI I2C */
+/* ZPG PRO RK618 
+
+RK618_RST  --- GPIO2_B5
+LCDC_CLK   --- GPIO3_A0
+LCDC_HSYNC --- GPIO3_A1
+LCDC_VSYNC --- GPIO3_A2
+LCDC_DEN   --- GPIO3_A3
+LCDC_D0    --- GPIO3_A4
+LCDC_D1    --- GPIO3_A5
+LCDC_D2    --- GPIO3_A6
+LCDC_D3    --- GPIO3_A7
+LCDC_D4    --- GPIO3_B0
+LCDC_D5    --- GPIO3_B1
+LCDC_D6    --- GPIO3_B2
+LCDC_D7    --- GPIO3_B3
+LCDC_D8    --- GPIO3_B4
+LCDC_D9    --- GPIO3_B5
+LCDC_D10   --- GPIO3_B6
+LCDC_D11   --- GPIO3_B7
+LCDC_D12   --- GPIO3_C0
+LCDC_D13   --- GPIO3_C1
+LCDC_D14   --- GPIO3_C2
+LCDC_D15   --- GPIO3_C3
+LCDC_D16   --- GPIO3_C4
+LCDC_D17   --- GPIO3_C5
+LCDC_D18   --- GPIO3_C6
+LCDC_D19   --- GPIO3_C7
+LCDC_D20   --- GPIO3_D0
+LCDC_D21   --- GPIO3_D1
+LCDC_D22   --- GPIO3_D2
+LCDC_D23   --- GPIO3_D3
+*/
 &i2c2 {
 	status = "okay";
 	clock-frequency = <400000>;
@@ -1189,7 +1218,7 @@
          echo 0 > /sys/class/gpio/gpio17/value
          echo 1 > /sys/class/gpio/gpio17/value
        */
-	   
+
 	sdio_pwrseq {
 		wifi_enable_h: wifi-enable-h {
 			rockchip,pins = <0 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
@@ -1200,4 +1229,3 @@
 /* DON'T PUT ANYTHING BELOW HERE.  PUT IT ABOVE PINCTRL */
 /* DON'T PUT ANYTHING BELOW HERE.  PUT IT ABOVE PINCTRL */
 /* DON'T PUT ANYTHING BELOW HERE.  PUT IT ABOVE PINCTRL */
-
