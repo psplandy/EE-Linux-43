@@ -148,52 +148,53 @@
                         linux,code = <BTN_NORTH>; // 0x133
                 };
                 sw9 {
-                        gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;     //ket back s18
+                        gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;
                         label = "GPIO F1";
                         linux,code = <BTN_TRIGGER_HAPPY1>; // 0x2c0
                 };
                 sw10 {
-                        gpios = <&gpio1 RK_PB7 GPIO_ACTIVE_LOW>;     //key menu s17
+                        gpios = <&gpio1 RK_PB7 GPIO_ACTIVE_LOW>;
                         label = "GPIO F2";
                         linux,code = <BTN_TRIGGER_HAPPY2>; // 0x2c1
                 };
                 sw11 {
-                        gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;   //select  s13
+                        gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;
                         label = "GPIO F3";
-                        linux,code = <BTN_TRIGGER_HAPPY3>; // 0x2c2
+                        linux,code = <BTN_TRIGGER_HAPPY5>; // 0x2c2
                 };
                 sw12 {
-                        gpios = <&gpio1 RK_PB5 GPIO_ACTIVE_LOW>;   //start   s14
+                        gpios = <&gpio1 RK_PB5 GPIO_ACTIVE_LOW>;
                         label = "GPIO F4";
-                        linux,code = <BTN_TRIGGER_HAPPY4>; // 0x2c3
+                        linux,code = <BTN_TRIGGER_HAPPY6>; // 0x2c3
                 };
                 sw13 {
-                        gpios = <&gpio1 RK_PA5 GPIO_ACTIVE_LOW>;  //S15 vol+
+                        gpios = <&gpio1 RK_PA5 GPIO_ACTIVE_LOW>;
                         label = "GPIO F5";
-                        linux,code = <BTN_TRIGGER_HAPPY5>; // 0x2c4
+                        linux,code = <BTN_TRIGGER_HAPPY3>; // 0x2c4
                 };
                 sw14 {
-                        gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_LOW>;  //s16  vol-
+                        gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_LOW>;
                         label = "GPIO F6";
-                        linux,code = <BTN_TRIGGER_HAPPY6>; // 0x13c
+                        linux,code = <BTN_TRIGGER_HAPPY4>; // 0x13c
                 };
                 sw15 {
-                        gpios = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PB1 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-LEFT";
                         linux,code = <BTN_TL>; // 0x02
                 };
                 sw16 {
-                        gpios = <&gpio2 RK_PB2 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PB3 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-RIGHT";
                         linux,code = <BTN_TR>; // 0x05
                 };
+/*
                 sw20 {
-                        gpios = <&gpio2 RK_PB1 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-LEFT2";
                         linux,code = <BTN_TL2>;
                 };
                 sw21 {
-                        gpios = <&gpio2 RK_PB3 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio2 RK_PB2 GPIO_ACTIVE_LOW>;
                         label = "GPIO TOP-RIGHT2";
                         linux,code = <BTN_TR2>;
                 };
@@ -203,6 +204,7 @@
                         label = "GPIO JOY KEY";
                         linux,code = <BTN_TRIGGER_HAPPY7>;
                 };
+*/
 				
         };
 
@@ -356,22 +358,27 @@
 	
 	wireless-wlan {
 		compatible = "wlan-platdata";
+		rockchip,grf = <&grf>;
+		/* wifi_chip_type - wifi chip define
+		* ap6210, ap6330, ap6335
+		* rtl8188eu, rtl8723bs, rtl8723bu
+		* esp8089
+		*/
 		wifi_chip_type = "rtl8723ds";
+		sdio_vref = <3300>; //1800mv or 3300mv
 		WIFI,host_wake_irq = <&gpio0 RK_PA5 GPIO_ACTIVE_HIGH>;
 		status = "okay";
 	};
-
+	
 	wireless-bluetooth {
 		compatible = "bluetooth-platdata";
-		clocks = <&rk817 1>;
-		clock-names = "ext_clock";
 		uart_rts_gpios = <&gpio1 RK_PC3 GPIO_ACTIVE_LOW>;
 		pinctrl-names = "default","rts_gpio";
 		pinctrl-0 = <&uart1_rts>;
 		pinctrl-1 = <&uart1_rts_gpio>;
 		BT,reset_gpio = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
 		BT,wake_gpio = <&gpio0 RK_PA1 GPIO_ACTIVE_HIGH>;
-		BT,wake_host_irq = <&gpio0 RK_PA7 GPIO_ACTIVE_HIGH>;
+		BT,wake_host_irq = <&gpio0 RK_PA7 GPIO_ACTIVE_HIGH>; /* BT_WAKE_HOST */
 		status = "okay";
 	};
 	
