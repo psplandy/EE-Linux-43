@@ -148,7 +148,7 @@
                         linux,code = <BTN_NORTH>; // 0x133
                 };
                 sw9 {
-                        gpios = <&gpio1 RK_PB7 GPIO_ACTIVE_LOW>;     //ket back s18
+                        gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;     //ket back s18
                         label = "GPIO F1";
                         linux,code = <BTN_TRIGGER_HAPPY1>; // 0x2c0
                 };
@@ -168,7 +168,7 @@
                         linux,code = <BTN_TRIGGER_HAPPY4>; // 0x2c3
                 };
                 sw13 {
-                        gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;  //key menu s17
+                        gpios = <&gpio1 RK_PB7 GPIO_ACTIVE_LOW>;  //key menu s17
                         label = "GPIO F5";
                         linux,code = <BTN_TRIGGER_HAPPY5>; // 0x2c4
                 };
