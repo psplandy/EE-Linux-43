@@ -148,7 +148,7 @@
                         linux,code = <BTN_NORTH>; // 0x133
                 };
                 sw9 {
-                        gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;
                         label = "GPIO F1";
                         linux,code = <BTN_TRIGGER_HAPPY1>; // 0x2c0
                 };
@@ -158,7 +158,7 @@
                         linux,code = <BTN_TRIGGER_HAPPY2>; // 0x2c1
                 };
                 sw11 {
-                        gpios = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;
+                        gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;
                         label = "GPIO F3";
                         linux,code = <BTN_TRIGGER_HAPPY3>; // 0x2c2
                 };
